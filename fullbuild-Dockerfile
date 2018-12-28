@@ -1,0 +1,29 @@
+FROM gcr.io/google-samples/cassandra:v14
+
+RUN apt-get update && apt-get install --yes \
+  python \
+  gcc \
+  python-dev \
+  unzip
+
+RUN wget -P /tmp \
+  https://github.com/apache/cassandra/archive/cassandra-3.11.2.zip && \
+  unzip -d /tmp /tmp/cassandra-3.11.2.zip
+
+RUN wget -P /tmp \
+  https://bootstrap.pypa.io/get-pip.py
+
+RUN python \
+  /tmp/get-pip.py 
+
+RUN pip install \
+  cython
+
+RUN cd /tmp/cassandra-cassandra-3.11.2/pylib && \
+  python setup.py build && python setup.py install
+
+RUN rm -rf /tmp/cassandra-*
+
+RUN apt-get purge -y gcc python-dev && \
+  apt-get autoremove -y && \
+  apt-get clean -y
