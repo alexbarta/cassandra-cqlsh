@@ -1,11 +1,11 @@
 FROM gcr.io/google-samples/cassandra:v14
 
-ENV CASSANDRA_DATA /var/lib/cassandra
+#ENV CASSANDRA_DATA /var/lib/cassandra
 
-RUN mkdir -p /var/lib/cassandra
+#RUN mkdir -p /var/lib/cassandra
 
-RUN sed -i 's|/cassandra_data|/var/lib/cassandra|g' \
-  /etc/cassandra/cassandra.yaml
+#RUN sed -i 's|/cassandra_data|/var/lib/cassandra|g' \
+#  /etc/cassandra/cassandra.yaml
 
 RUN apt-get update && apt-get install --yes \
   python
